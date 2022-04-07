@@ -1,0 +1,23 @@
+---
+- name: Install Nginx and open ports
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install NGINX
+      apt: name=nginx update_cache=yes state=latest
+      
+    - name: "UFW - Allow ports 22, 80, 443"
+      ufw:
+        rule: allow
+        port: '22', '80', '443'
+        proto: tcp
+
+    - name: Reload NGINX
+      notify: Reload NGINX
+
+  handlers:
+    - name: Reload NGINX
+      service:
+        name: nginx
+        state: reloaded
