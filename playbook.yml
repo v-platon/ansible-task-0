@@ -7,10 +7,22 @@
     - name: Install NGINX
       apt: name=nginx update_cache=yes state=latest
       
-    - name: "UFW - Allow ports 22, 80, 443"
+    - name: "UFW - Allow ports 22"
       ufw:
         rule: allow
-        port: '22', '80', '443'
+        port: '22'
+        proto: tcp
+        
+    - name: "UFW - Allow ports 80"
+      ufw:
+        rule: allow
+        port: '80'
+        proto: tcp
+        
+    - name: "UFW - Allow ports 443"
+      ufw:
+        rule: allow
+        port: '443'
         proto: tcp
 
     - name: Reload NGINX
