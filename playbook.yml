@@ -4,6 +4,9 @@
   become: yes
 
   tasks:
+    - name: Install UFW
+      apt: name=ufw update_cache=yes state=latest
+  
     - name: Install NGINX
       apt: name=nginx update_cache=yes state=latest
       
@@ -25,10 +28,6 @@
         port: '443'
         proto: tcp
 
-    - name: Reload NGINX
-      notify: Reload NGINX
-
-  handlers:
     - name: Reload NGINX
       service:
         name: nginx
